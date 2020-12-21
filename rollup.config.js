@@ -44,7 +44,7 @@ export default {
         postcss([autoprefixer])
           .process(css, { from: undefined })
           .then((result) => result.css),
-      insert: true,
+      output: `${dist}${name}.css`,
     }),
     babel({
       exclude: 'node_modules/**',
