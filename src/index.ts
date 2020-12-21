@@ -36,7 +36,7 @@ export default class FocusOverlay {
 
   private debouncedMoveFocusBox: () => void;
 
-  private constructor(
+  public constructor(
     element: Element | string,
     options: Partial<FocusOverlayOptions>,
   ) {
