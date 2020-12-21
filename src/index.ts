@@ -6,7 +6,7 @@ import {
   whichTransitionEvent,
   nothing,
 } from './utils';
-import './styles.css';
+import './styles.scss';
 
 /**
  * The plugin constructor

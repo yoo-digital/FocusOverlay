@@ -1,8 +1,10 @@
 import babel from 'rollup-plugin-babel';
 import resolve from 'rollup-plugin-node-resolve';
+import sass from 'rollup-plugin-sass';
 import commonjs from 'rollup-plugin-commonjs';
 import { terser } from 'rollup-plugin-terser';
-import postcss from 'rollup-plugin-postcss';
+import autoprefixer from 'autoprefixer';
+import postcss from 'postcss';
 import typescript from 'rollup-plugin-typescript2';
 import { version, homepage, author, license } from './package.json';
 
@@ -37,6 +39,13 @@ export default {
   plugins: [
     resolve(),
     typescript(),
+    sass({
+      processor: (css) =>
+        postcss([autoprefixer])
+          .process(css, { from: undefined })
+          .then((result) => result.css),
+      insert: true,
+    }),
     babel({
       exclude: 'node_modules/**',
       presets: [
@@ -58,9 +67,5 @@ export default {
       terser({
         output: { preamble }
       }),
-    postcss({
-      extract: `${dist}${name}.css`,
-      minimize: true
-    })
   ]
 };
