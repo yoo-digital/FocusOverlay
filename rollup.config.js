@@ -3,6 +3,7 @@ import resolve from 'rollup-plugin-node-resolve';
 import commonjs from 'rollup-plugin-commonjs';
 import { terser } from 'rollup-plugin-terser';
 import postcss from 'rollup-plugin-postcss';
+import typescript from 'rollup-plugin-typescript2';
 import { version, homepage, author, license } from './package.json';
 
 const dist = './dist/';
@@ -14,7 +15,7 @@ const preamble = `/* Focus Overlay - v${version}
 * Copyright (c) ${new Date().getFullYear()} ${author}. Licensed ${license} */`;
 
 export default {
-  input: './src/index.js',
+  input: './src/index.ts',
   output: [
     {
       file: `${dist}${name}.cjs.js`,
@@ -35,6 +36,7 @@ export default {
   ],
   plugins: [
     resolve(),
+    typescript(),
     babel({
       exclude: 'node_modules/**',
       presets: [
