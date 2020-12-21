@@ -1,4 +1,5 @@
-$focus-overlay-border-color: #396aab;
+$focus-overlay-border-color: #396aab !default;
+$focus-overlay-box-shadow-color: $focus-overlay-border-color !default;
 
 .focus-overlay {
   display: none;
@@ -17,7 +18,7 @@ $focus-overlay-border-color: #396aab;
     border-radius: 0.3125em;
     box-shadow:
       (
-        0 0 3px 1px rgba($focus-overlay-border-color, 0.6),
+        0 0 3px 1px rgba($focus-overlay-box-shadow-color, 0.6),
         inset 0 0 0 1px white,
       );
   }
