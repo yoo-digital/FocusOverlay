@@ -1,4 +1,3 @@
-import './polyfills/closest';
 import { FocusOverlayOptions } from './types';
 import './styles.scss';
 /**
