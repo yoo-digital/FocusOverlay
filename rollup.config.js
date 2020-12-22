@@ -2,7 +2,6 @@ import babel from 'rollup-plugin-babel';
 import resolve from 'rollup-plugin-node-resolve';
 import commonjs from 'rollup-plugin-commonjs';
 import { terser } from 'rollup-plugin-terser';
-import postcss from 'rollup-plugin-postcss';
 import typescript from 'rollup-plugin-typescript';
 import { version, homepage, author, license } from './package.json';
 
@@ -38,10 +37,6 @@ export default {
     resolve(),
     typescript({
       tsconfig: 'tsconfig.build.json',
-    }),
-    postcss({
-      extract: `${dist}${name}.css`,
-      minimize: true
     }),
     babel({
       exclude: 'node_modules/**',

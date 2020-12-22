@@ -1,2 +1,2 @@
-node_modules
-files: [dist]
+/node_modules
+/dist

@@ -5,7 +5,6 @@ import {
   whichTransitionEvent,
   nothing,
 } from './utils';
-import '../dist/focusoverlay.css';
 
 /**
  * The plugin constructor
