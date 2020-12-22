@@ -62,7 +62,8 @@ export default {
               browsers: '> 1%, IE 11, not op_mini all, not dead',
               node: 8
             },
-            useBuiltIns: 'usage'
+            useBuiltIns: 'usage',
+            corejs: '3.8.1',
           }
         ]
       ]
