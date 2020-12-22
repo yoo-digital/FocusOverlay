@@ -5,7 +5,7 @@ import {
   whichTransitionEvent,
   nothing,
 } from './utils';
-import './styles.scss';
+import '../dist/focusoverlay.css';
 
 /**
  * The plugin constructor
@@ -300,14 +300,16 @@ export default class FocusOverlay {
 
   /**
    * Moves the focusBox to a target element
-   * @param {Element|Event|null} targetEl
+   * @param {HTMLElement|Event|null} targetEl
    */
-  public moveFocusBox(targetEl: Element | Event | null): void {
+  public moveFocusBox(target: HTMLElement | Event | null): void {
     // When passed as a handler we'll get the event target
-    if (targetEl instanceof Event) {
+    if (target instanceof Event) {
       // eslint-disable-next-line no-param-reassign
-      targetEl = this.currentTarget;
+      target = this.currentTarget;
     }
+
+    const targetEl: HTMLElement | null = target;
 
     // Marking current element as being targeted
     targetEl?.classList.add(this.options.targetClass);
@@ -318,7 +320,7 @@ export default class FocusOverlay {
      * an IE issue with the document and window sometimes being targeted
      * and throwing errors since you can't get the position values of those.
      */
-    if (document.body.contains(targetEl) && targetEl instanceof Element && this.focusBox) {
+    if (document.body.contains(targetEl) && targetEl instanceof HTMLElement && this.focusBox) {
       const rect = absolutePosition(targetEl);
       const width = `${rect.width}px`;
       const height = `${rect.height}px`;

@@ -1,5 +1,5 @@
 import { FocusOverlayOptions } from './types';
-import './styles.scss';
+import '../dist/focusoverlay.css';
 /**
  * The plugin constructor
  * @param {Element|String} element The DOM element where plugin is applied
@@ -47,9 +47,9 @@ export default class FocusOverlay {
     private stop;
     /**
      * Moves the focusBox to a target element
-     * @param {Element|Event|null} targetEl
+     * @param {HTMLElement|Event|null} targetEl
      */
-    moveFocusBox(targetEl: Element | Event | null): void;
+    moveFocusBox(target: HTMLElement | Event | null): void;
     /**
      * The destroy method to free resources used by the plugin:
      * References, unregister listeners, etc.

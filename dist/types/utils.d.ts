@@ -1,4 +1,8 @@
-import { UnknownFunction, FocusOverlayPosition } from './types';
+import { FocusOverlayPosition } from './types';
+/**
+ * Represents a function of an unknown amount of arguments.
+ */
+export declare type UnknownFunction = (...args: unknown[]) => void;
 export declare const debounce: (callback: UnknownFunction, wait: number) => UnknownFunction;
 /**
  * Cross browser transitionEnd event

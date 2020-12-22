@@ -2,7 +2,11 @@
 
 Library for creating overlays on focused elements. It was built with accessibility in mind with trigger keys and ARIA roles.
 
-This is a rewrite of the original [focus-overlay](https://github.com/mmahandev/FocusOverlay) library in TypeScript + SCSS. Additionally it includes further options (`debounceScroll`, `debounceResize`, `debounceMs`).
+This is a fork of the original library [focus-overlay](https://github.com/mmahandev/FocusOverlay). We rewrote the library to TypeScript and Sass. Furthermore we introduced the following options:
+
+* `debounceScroll`
+* `debounceResize`
+* `debounceMs`
 
 ![Focus Overlay](http://i.imgur.com/zMFb7m4.gif)
 

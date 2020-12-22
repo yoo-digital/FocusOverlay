@@ -1,10 +1,8 @@
 import babel from 'rollup-plugin-babel';
 import resolve from 'rollup-plugin-node-resolve';
-import scss from 'rollup-plugin-scss';
 import commonjs from 'rollup-plugin-commonjs';
 import { terser } from 'rollup-plugin-terser';
-import autoprefixer from 'autoprefixer';
-import postcss from 'postcss';
+import postcss from 'rollup-plugin-postcss';
 import typescript from 'rollup-plugin-typescript';
 import { version, homepage, author, license } from './package.json';
 
@@ -15,6 +13,41 @@ const sourcemap = !production ? 'inline' : false;
 const preamble = `/* Focus Overlay - v${version}
 * ${homepage}
 * Copyright (c) ${new Date().getFullYear()} ${author}. Licensed ${license} */`;
+
+const fs = require('fs');
+const sass = require('sass');
+const packageImporter = require('node-sass-package-importer');
+
+const EXPORT_DIR = 'dist';
+
+const ENTRY_FILE = 'src/styles.scss';
+const OUT_FILE = 'dist/focusoverlay.css';
+
+const checkExportDir = () => {
+  if (!fs.existsSync(EXPORT_DIR)){
+    fs.mkdirSync(EXPORT_DIR);
+  }
+};
+
+sass.render({
+  file: ENTRY_FILE,
+  importer: packageImporter(),
+  outFile: OUT_FILE,
+}, function(error, result) {
+  if (!error) {
+    checkExportDir();
+
+    fs.writeFile(OUT_FILE, result.css, function(err) {
+      if (!err) {
+        console.log('CSS File created');
+      } else {
+        console.error(err);
+      }
+    });
+  } else {
+    console.error(error);
+  }
+});
 
 export default {
   input: './src/index.ts',
@@ -41,15 +74,9 @@ export default {
     typescript({
       tsconfig: 'tsconfig.build.json',
     }),
-    scss({
-      processor: (css) =>
-        postcss({
-          plugins: [autoprefixer()],
-        })
-          .process(css, { from: undefined })
-          .then((result) => result.css),
-      output: `${dist}${name}.css`,
-      outputStyle: 'compressed',
+    postcss({
+      extract: `${dist}${name}.css`,
+      minimize: true
     }),
     babel({
       exclude: 'node_modules/**',

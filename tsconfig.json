@@ -17,7 +17,6 @@
     "experimentalDecorators": true,
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
-    "jsx": "react",
     "module": "es2015",
     "moduleResolution": "node",
     "noFallthroughCasesInSwitch": true,
@@ -27,7 +26,6 @@
     "noUnusedParameters": true,
     "outDir": "./dist",
     "pretty": true,
-    "resolveJsonModule": true,
     "rootDirs": ["src"],
     "skipLibCheck": true,
     "strict": true

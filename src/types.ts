@@ -1,7 +1,4 @@
-/**
- * Represents a function of an unknown amount of arguments.
- */
-export type UnknownFunction = (...args: unknown[]) => void;
+import FocusOverlay from './index';
 
 export interface FocusOverlayOptions {
   class: string;
@@ -19,10 +16,18 @@ export interface FocusOverlayOptions {
   debounceScroll: boolean,
   debounceResize: boolean,
   debounceMs: number,
-  onInit: UnknownFunction,
-  onBeforeMove: UnknownFunction,
-  onAfterMove: UnknownFunction,
-  onDestroy: UnknownFunction,
+  onInit: (focusOverlay: FocusOverlay) => void,
+  onBeforeMove: (
+    currentTarget: HTMLElement | null,
+    nextTarget: HTMLElement | null,
+    focusOverlay: FocusOverlay,
+  ) => void,
+  onAfterMove: (
+    previousTarget: HTMLElement | null,
+    currentTarget: HTMLElement | null,
+    focusOverlay: FocusOverlay,
+  ) => void,
+  onDestroy: (focusOverlay: FocusOverlay) => void,
 }
 
 export interface FocusOverlayPosition {

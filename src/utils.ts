@@ -1,7 +1,11 @@
 import {
-  UnknownFunction,
   FocusOverlayPosition,
 } from './types';
+
+/**
+ * Represents a function of an unknown amount of arguments.
+ */
+export type UnknownFunction = (...args: unknown[]) => void;
 
 /*
  * Delays the processing of the given callback function until the user
