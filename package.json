@@ -18,7 +18,8 @@
   "main": "dist/focusoverlay.cjs.js",
   "module": "dist/focusoverlay.esm.js",
   "scripts": {
-    "build": "rimraf dist && npm run build:es && npm run build:types",
+    "build": "rimraf dist && npm run build:css && npm run build:es && npm run build:types",
+    "build:css": "node compile-css.js",
     "build:es": "rollup -c rollup.config.js",
     "build:types": "tsc -p ./tsconfig.types.json --emitDeclarationOnly --outDir dist/types",
     "lint": "npm run lint:ts && npm run lint:sass",
