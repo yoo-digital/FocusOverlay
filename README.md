@@ -2,6 +2,8 @@
 
 Library for creating overlays on focused elements. It was built with accessibility in mind with trigger keys and ARIA roles.
 
+This is a rewrite of the original [focus-overlay](https://github.com/mmahandev/FocusOverlay) library in TypeScript + SCSS. Additionally it includes further options (`debounceScroll`, `debounceResize`, `debounceMs`).
+
 ![Focus Overlay](http://i.imgur.com/zMFb7m4.gif)
 
 ## Install
@@ -9,18 +11,7 @@ Library for creating overlays on focused elements. It was built with accessibili
 Install with npm:
 
 ```bash
-npm install focus-overlay
-```
-
-Install in browser:
-
-<!-- prettier-ignore -->
-```html
-<!-- In the <head> -->
-<link rel="stylesheet" href="//unpkg.com/focus-overlay@latest/dist/focusoverlay.css" />
-
-<!-- End of <body> -->
-<script src="//unpkg.com/focus-overlay@latest/dist/focusoverlay.js"></script>
+npm install @yoo-digital/focus-overlay
 ```
 
 The CSS is small enough to copy directly into your project's main stylesheet if you desire.
@@ -74,6 +65,12 @@ inactiveOnClick: true,
 alwaysActive: false,
 // Reposition focus box on transitionEnd for focused elements
 watchTransitionEnd: true,
+// Reposition focus box on scroll event (debounce: default 150ms)
+debounceScroll: true,
+// Reposition focus box on resize event (debounce: default 150ms)
+debounceResize: true,
+// Defines the waiting time for the debounce function in milliseconds.
+debounceMs: 150,
 // Initialization event
 onInit: function(focusoverlay) {},
 // Before focus box move
