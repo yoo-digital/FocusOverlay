@@ -17,6 +17,7 @@
   "author": "YOO AG",
   "main": "dist/focusoverlay.cjs.js",
   "module": "dist/focusoverlay.esm.js",
+  "types": "dist/types/index.d.ts",
   "scripts": {
     "build": "rimraf dist && npm run build:css && npm run build:es && npm run build:types",
     "build:css": "node compile-css.js",
