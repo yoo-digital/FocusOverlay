@@ -2,7 +2,7 @@ import babel from 'rollup-plugin-babel';
 import resolve from 'rollup-plugin-node-resolve';
 import commonjs from 'rollup-plugin-commonjs';
 import { terser } from 'rollup-plugin-terser';
-import postcss from 'rollup-plugin-postcss';
+import typescript from 'rollup-plugin-typescript';
 import { version, homepage, author, license } from './package.json';
 
 const dist = './dist/';
@@ -14,7 +14,7 @@ const preamble = `/* Focus Overlay - v${version}
 * Copyright (c) ${new Date().getFullYear()} ${author}. Licensed ${license} */`;
 
 export default {
-  input: './src/index.js',
+  input: './src/index.ts',
   output: [
     {
       file: `${dist}${name}.cjs.js`,
@@ -35,18 +35,22 @@ export default {
   ],
   plugins: [
     resolve(),
+    typescript({
+      tsconfig: 'tsconfig.build.json',
+    }),
     babel({
       exclude: 'node_modules/**',
       presets: [
         [
           '@babel/env',
           {
-            modules: 'false',
+            modules: false,
             targets: {
               browsers: '> 1%, IE 11, not op_mini all, not dead',
               node: 8
             },
-            useBuiltIns: 'usage'
+            useBuiltIns: 'usage',
+            corejs: '3.8.1',
           }
         ]
       ]
@@ -56,9 +60,5 @@ export default {
       terser({
         output: { preamble }
       }),
-    postcss({
-      extract: `${dist}${name}.css`,
-      minimize: true
-    })
   ]
 };

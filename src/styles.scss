@@ -1,0 +1,37 @@
+$focus-overlay-color: #396aab !default;
+$focus-overlay-border: 1px solid $focus-overlay-color !default;
+$focus-overlay-box-shadow: (
+  0 0 3px 1px rgba($focus-overlay-color, 0.6),
+  inset 0 0 0 1px white,
+) !default;
+$focus-overlay-offset: -4px !default;
+$focus-overlay-z-index: 9999 !default;
+$focus-overlay-border-radius: 0.3125em !default;
+$focus-overlay-transition: all 0.2s cubic-bezier(0, 1, 0, 1) !default;
+
+.focus-overlay {
+  display: none;
+  position: relative;
+  transition: $focus-overlay-transition;
+
+  &::after {
+    content: "";
+    position: absolute;
+    z-index: $focus-overlay-z-index;
+    top: $focus-overlay-offset;
+    right: $focus-overlay-offset;
+    bottom: $focus-overlay-offset;
+    left: $focus-overlay-offset;
+    border: $focus-overlay-border;
+    border-radius: $focus-overlay-border-radius;
+    box-shadow: $focus-overlay-box-shadow;
+  }
+
+  .focus-overlay-active {
+    display: block;
+  }
+
+  &-target {
+    outline: none;
+  }
+}
