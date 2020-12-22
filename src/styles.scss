@@ -1,5 +1,13 @@
-$focus-overlay-border-color: #396aab !default;
-$focus-overlay-box-shadow-color: $focus-overlay-border-color !default;
+
+$focus-overlay-color: #396aab !default;
+$focus-overlay-border: 1px solid $focus-overlay-color !default;
+$focus-overlay-box-shadow: (
+  0 0 3px 1px rgba($focus-overlay-box-shadow-color, 0.6),
+  inset 0 0 0 1px white,
+) !default;
+$focus-overlay-offset: -4px !default;
+$focus-overlay-z-index: 9999 !default;
+$focus-overlay-border-radius: 0.3125em !default;
 
 .focus-overlay {
   display: none;
@@ -9,18 +17,14 @@ $focus-overlay-box-shadow-color: $focus-overlay-border-color !default;
   &::after {
     content: "";
     position: absolute;
-    z-index: 9999;
-    top: -4px;
-    right: -4px;
-    bottom: -4px;
-    left: -4px;
-    border: 1px solid $focus-overlay-border-color;
-    border-radius: 0.3125em;
-    box-shadow:
-      (
-        0 0 3px 1px rgba($focus-overlay-box-shadow-color, 0.6),
-        inset 0 0 0 1px white,
-      );
+    z-index: $focus-overlay-z-index;
+    top: $focus-overlay-offset;
+    right: $focus-overlay-offset;
+    bottom: $focus-overlay-offset;
+    left: $focus-overlay-offset;
+    border: $focus-overlay-border;
+    border-radius: $focus-overlay-border-radius;
+    box-shadow: $focus-overlay-box-shadow;
   }
 
   .focus-overlay-active {
