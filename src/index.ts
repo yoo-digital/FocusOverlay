@@ -28,8 +28,6 @@ export default class FocusOverlay {
 
   private timeout: NodeJS.Timeout;
 
-  private inScope: boolean;
-
   private transitionEvent: string;
 
   private options: FocusOverlayOptions;
@@ -47,7 +45,6 @@ export default class FocusOverlay {
     this.previousTarget = null;
     this.nextTarget = null;
     this.timeout = setTimeout(nothing, 1);
-    this.inScope = false;
     this.transitionEvent = whichTransitionEvent();
     this.options = {
       // Class added to the focus box
@@ -229,8 +226,6 @@ export default class FocusOverlay {
       // Variable to be added to onBeforeMove event later
       const currentEl = this.nextTarget;
 
-      this.inScope = true;
-
       // If the focused element has data-focus then assign a new target
       const focusSelector = focusedEl.getAttribute('data-focus');
       if (focusSelector !== null) {
@@ -282,11 +277,8 @@ export default class FocusOverlay {
 
       // If the focused element is a child of the main element but alwaysActive do nothing
     } else if (this.options.alwaysActive) {
-      this.inScope = false;
-
       // If the element focused is not a child of the main element stop being active
     } else {
-      this.inScope = false;
       this.stop();
     }
   }
