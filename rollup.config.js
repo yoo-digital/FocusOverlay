@@ -1,6 +1,6 @@
 import babel from 'rollup-plugin-babel';
 import resolve from 'rollup-plugin-node-resolve';
-import sass from 'rollup-plugin-sass';
+import scss from 'rollup-plugin-scss';
 import commonjs from 'rollup-plugin-commonjs';
 import { terser } from 'rollup-plugin-terser';
 import autoprefixer from 'autoprefixer';
@@ -39,12 +39,15 @@ export default {
   plugins: [
     resolve(),
     typescript(),
-    sass({
+    scss({
       processor: (css) =>
-        postcss([autoprefixer])
+        postcss({
+          plugins: [autoprefixer()],
+        })
           .process(css, { from: undefined })
           .then((result) => result.css),
       output: `${dist}${name}.css`,
+      outputStyle: 'compressed',  
     }),
     babel({
       exclude: 'node_modules/**',
@@ -52,7 +55,7 @@ export default {
         [
           '@babel/env',
           {
-            modules: 'false',
+            modules: false,
             targets: {
               browsers: '> 1%, IE 11, not op_mini all, not dead',
               node: 8
