@@ -5,7 +5,7 @@ import commonjs from 'rollup-plugin-commonjs';
 import { terser } from 'rollup-plugin-terser';
 import autoprefixer from 'autoprefixer';
 import postcss from 'postcss';
-import typescript from 'rollup-plugin-typescript2';
+import typescript from 'rollup-plugin-typescript';
 import { version, homepage, author, license } from './package.json';
 
 const dist = './dist/';
@@ -38,7 +38,9 @@ export default {
   ],
   plugins: [
     resolve(),
-    typescript(),
+    typescript({
+      tsconfig: 'tsconfig.build.json',
+    }),
     scss({
       processor: (css) =>
         postcss({
@@ -47,7 +49,7 @@ export default {
           .process(css, { from: undefined })
           .then((result) => result.css),
       output: `${dist}${name}.css`,
-      outputStyle: 'compressed',  
+      outputStyle: 'compressed',
     }),
     babel({
       exclude: 'node_modules/**',
