@@ -13,6 +13,7 @@ export interface FocusOverlayOptions {
   inactiveOnClick: boolean,
   alwaysActive: boolean,
   watchTransitionEnd: boolean,
+  watchAnimationEnd: boolean,
   debounceScroll: boolean,
   debounceResize: boolean,
   debounceMs: number,
