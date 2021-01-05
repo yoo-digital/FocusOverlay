@@ -75,7 +75,7 @@ export default class FocusOverlay {
       // Reposition focus box on animationEnd based on the window object
       watchAnimationEnd: true,
       // Reposition focus box on scroll event (debounce: default 150ms)
-      debounceScroll: false,
+      debounceScroll: true,
       // Reposition focus box on resize event (debounce: default 150ms)
       debounceResize: true,
       // Defines the waiting time for the debounce function in milliseconds.
