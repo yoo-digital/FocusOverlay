@@ -7,6 +7,7 @@ This is a fork of the original library [focus-overlay](https://github.com/mmahan
 * `debounceScroll`
 * `debounceResize`
 * `debounceMs`
+* `watchAnimationEnd`
 
 ![Focus Overlay](http://i.imgur.com/zMFb7m4.gif)
 
@@ -58,17 +59,19 @@ zIndex: 9001,
 // Duration of the animatingClass (milliseconds)
 duration: 500,
 // Removes activeClass after duration
-inactiveAfterDuration: false,
-// Tab, Arrow Keys, Enter, Space, Shift, Ctrl, Alt, ESC
-triggerKeys: [9, 36, 37, 38, 39, 40, 13, 32, 16, 17, 18, 27],
+inActiveAfterDuration: false,
+// Tab, Page up, Page down, End, Home, Arrow Keys, Enter, Space, Shift, Ctrl, Alt, ESC
+triggerKeys: [9, 33, 34, 35, 36, 37, 38, 39, 40, 13, 32, 16, 17, 18, 27],
 // Make focus box inactive when a non specified key is pressed
-inactiveOnNonTriggerKey: true,
+inactiveOnNonTriggerKey: false,
 // Make focus box inactive when a user clicks
 inactiveOnClick: true,
 // Force the box to always stay active. Overrides everything
 alwaysActive: false,
 // Reposition focus box on transitionEnd for focused elements
 watchTransitionEnd: true,
+// Reposition focus box on animationEnd based on the window object
+watchAnimationEnd: true,
 // Reposition focus box on scroll event (debounce: default 150ms)
 debounceScroll: true,
 // Reposition focus box on resize event (debounce: default 150ms)
