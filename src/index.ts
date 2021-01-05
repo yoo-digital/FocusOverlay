@@ -65,7 +65,7 @@ export default class FocusOverlay {
       // Tab, Page up, Page down, End, Home, Arrow Keys, Enter, Space, Shift, Ctrl, Alt, ESC
       triggerKeys: [9, 33, 34, 35, 36, 37, 38, 39, 40, 13, 32, 16, 17, 18, 27],
       // Make focus box inactive when a non specified key is pressed
-      inactiveOnNonTriggerKey: true,
+      inactiveOnNonTriggerKey: false,
       // Make focus box inactive when a user clicks
       inactiveOnClick: true,
       // Force the box to always stay active. Overrides everything
