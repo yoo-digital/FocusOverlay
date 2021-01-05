@@ -2,7 +2,7 @@ import { FocusOverlayOptions } from './types';
 import {
   debounce,
   absolutePosition,
-  whichTransitionEvent,
+  getAnimatableEndEvent,
   nothing,
 } from './utils';
 
@@ -28,6 +28,8 @@ export default class FocusOverlay {
 
   private transitionEvent: string;
 
+  private animationEvent: string;
+
   private options: FocusOverlayOptions;
 
   private debouncedMoveFocusBox: () => void;
@@ -43,7 +45,8 @@ export default class FocusOverlay {
     this.previousTarget = null;
     this.nextTarget = null;
     this.timeout = setTimeout(nothing, 1);
-    this.transitionEvent = whichTransitionEvent();
+    this.transitionEvent = getAnimatableEndEvent('transition');
+    this.animationEvent = getAnimatableEndEvent('animation');
     this.options = {
       // Class added to the focus box
       class: 'focus-overlay',
@@ -69,6 +72,8 @@ export default class FocusOverlay {
       alwaysActive: false,
       // Reposition focus box on transitionEnd for focused elements
       watchTransitionEnd: true,
+      // Reposition focus box on animationEnd based on the window object
+      watchAnimationEnd: true,
       // Reposition focus box on scroll event (debounce: default 150ms)
       debounceScroll: true,
       // Reposition focus box on resize event (debounce: default 150ms)
@@ -149,6 +154,12 @@ export default class FocusOverlay {
         }
         if (this.options.debounceResize) {
           window.addEventListener('resize', this.debouncedMoveFocusBox, false);
+        }
+        if (this.options.watchAnimationEnd) {
+          window.addEventListener(
+            this.animationEvent,
+            this.debouncedMoveFocusBox,
+          );
         }
       }
 
@@ -293,6 +304,12 @@ export default class FocusOverlay {
     if (this.options.debounceResize) {
       window.removeEventListener('resize', this.debouncedMoveFocusBox, false);
     }
+    if (this.options.watchAnimationEnd) {
+      window.removeEventListener(
+        this.animationEvent,
+        this.debouncedMoveFocusBox,
+      );
+    }
     this.cleanup();
     this.focusBox?.classList.remove(this.options.activeClass);
   }
@@ -372,6 +389,12 @@ export default class FocusOverlay {
     }
     if (this.options.debounceResize) {
       window.removeEventListener('resize', this.debouncedMoveFocusBox, false);
+    }
+    if (this.options.watchAnimationEnd) {
+      window.removeEventListener(
+        this.animationEvent,
+        this.debouncedMoveFocusBox,
+      );
     }
 
     this.options.onDestroy(this);

@@ -19,27 +19,44 @@ export const debounce = (callback: UnknownFunction, wait: number): UnknownFuncti
   };
 };
 
+const capitalize = (string:string): string => string.charAt(0).toUpperCase() + string.slice(1);
+
 /**
- * Cross browser transitionEnd event
- * https://davidwalsh.name/css-animation-callback
- * @return {String} Browser's supported transitionend type
+ * getAnimatableEndEvent
+ *
+ * returns the name of transitionend/animationend event for cross browser compatibility
+ *
+ * @param {string} type of the animatableEvent: 'transition' or 'animation'
+ * @returns {string} the transitionend/animationend event name
  */
-export const whichTransitionEvent = (): string => {
+export const getAnimatableEndEvent = (type: string): string => {
+  let animatableEvent = '';
+
   const el = document.createElement('fakeelement');
-  const transitions = {
-    transition: 'transitionend',
-    OTransition: 'oTransitionEnd',
-    MozTransition: 'transitionend',
-    WebkitTransition: 'webkitTransitionEnd',
+  const capitalType = capitalize(type);
+
+  const animations = {
+    [type]: `${type}end`,
+    [`O${capitalType}`]: `o${capitalType}End`,
+    [`Moz${capitalType}`]: `${type}end`,
+    [`Webkit${capitalType}`]: `webkit${capitalType}End`,
+    [`MS${capitalType}`]: `MS${capitalType}End`,
   };
 
-  Object.values(transitions).forEach((transition: string): string => {
-    if (el.style[(transition as any)] !== undefined) {
-      return transition;
+  const hasEventEnd = Object.keys(animations).some((item) => {
+    if (el.style[item as any] !== undefined) {
+      animatableEvent = animations[item];
+      return true;
     }
-    return '';
+
+    return false;
   });
-  return '';
+
+  if (!hasEventEnd) {
+    throw new Error(`${type}end is not supported in your web browser.`);
+  }
+
+  return animatableEvent;
 };
 
 // https://stackoverflow.com/a/32623832/8862005
