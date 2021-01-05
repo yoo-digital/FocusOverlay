@@ -6,6 +6,8 @@ import {
   nothing,
 } from './utils';
 
+export type { FocusOverlayOptions } from './types';
+
 /**
  * The plugin constructor
  * @param {Element|String} element The DOM element where plugin is applied

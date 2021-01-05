@@ -27,7 +27,7 @@ $focus-overlay-transition: all 0.2s cubic-bezier(0, 1, 0, 1) !default;
     box-shadow: $focus-overlay-box-shadow;
   }
 
-  .focus-overlay-active {
+  &.focus-overlay-active {
     display: block;
   }
 

@@ -66,19 +66,13 @@ export const absolutePosition = (el: Element): FocusOverlayPosition => {
   let top = 0;
   let width = 0;
   let height = 0;
-  const offsetBase: HTMLElement = document.createElement('div');
-  if (document.body) {
-    offsetBase.style.cssText = 'position:absolute;left:0;top:0';
-    document.body.appendChild(offsetBase);
-  }
   if (
     el
     && el.ownerDocument === document
     && 'getBoundingClientRect' in el
-    && offsetBase
   ) {
     const boundingRect = el.getBoundingClientRect();
-    const baseRect = offsetBase.getBoundingClientRect();
+    const baseRect = document.body.getBoundingClientRect();
     found = true;
     left = boundingRect.left - baseRect.left;
     top = boundingRect.top - baseRect.top;
