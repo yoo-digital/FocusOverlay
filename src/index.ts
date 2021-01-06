@@ -128,7 +128,6 @@ export default class FocusOverlay {
     if (this.options.alwaysActive) {
       this.active = true;
       window.addEventListener('focusin', this.onFocusHandler, true);
-      window.addEventListener('blur', this.onBlurHandler, true);
     } else {
       window.addEventListener('keydown', this.onKeyDownHandler, false);
 
@@ -153,6 +152,8 @@ export default class FocusOverlay {
       if (this.active === false) {
         this.active = true;
         window.addEventListener('focusin', this.onFocusHandler, true);
+        window.addEventListener('blur', this.onBlurHandler, false);
+
         if (this.options.debounceScroll) {
           window.addEventListener('scroll', this.debouncedMoveFocusBox, true);
         }
@@ -317,7 +318,7 @@ export default class FocusOverlay {
   private stop(): void {
     this.active = false;
     window.removeEventListener('focusin', this.onFocusHandler, true);
-    window.removeEventListener('blur', this.onBlurHandler, true);
+    window.removeEventListener('blur', this.onBlurHandler, false);
     if (this.options.debounceScroll) {
       window.removeEventListener('scroll', this.debouncedMoveFocusBox, true);
     }
@@ -402,7 +403,7 @@ export default class FocusOverlay {
 
     // Remove event listeners
     window.removeEventListener('focusin', this.onFocusHandler, true);
-    window.removeEventListener('blur', this.onBlurHandler, true);
+    window.removeEventListener('blur', this.onBlurHandler, false);
     window.removeEventListener('keydown', this.onKeyDownHandler, false);
     window.removeEventListener('mousedown', this.stop, false);
     if (this.options.debounceScroll) {
