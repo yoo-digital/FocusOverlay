@@ -33,8 +33,11 @@ $focus-overlay-transition: all 0.2s cubic-bezier(0, 1, 0, 1) !default;
 
   &-target {
     &,
-    &:focus,
-    &:focus:not(:focus-visible),
+    &:focus {
+      outline: none;
+      box-shadow: none;
+    }
+
     &:focus-visible {
       outline: none;
       box-shadow: none;
