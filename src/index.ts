@@ -302,7 +302,9 @@ export default class FocusOverlay {
       }
 
       this.options.onBeforeMove(currentEl, this.nextTarget, this);
-      this.moveFocusBox(this.nextTarget);
+      setTimeout(() => {
+        this.moveFocusBox(this.nextTarget);
+      }, 1);
 
       // If the focused element is a child of the main element but alwaysActive do nothing
     } else if (this.options.alwaysActive) {
