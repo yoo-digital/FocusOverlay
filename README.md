@@ -147,7 +147,10 @@ In this example FocusOverlay will not target this element at all.
 
 Focus Overlay works on all modern browsers.
 
-If you want to support IE11 you will have to add the [classList polyfill](https://github.com/eligrey/classList.js/blob/master/classList.js) to your project.
+If you want to support IE11 you will have to add the following two polyfills:
+
+* [classList polyfill](https://developer.mozilla.org/de/docs/Web/API/Element/classList#polyfill)
+* [closest polyfill](https://developer.mozilla.org/en-US/docs/Web/API/Element/closest#polyfill)
 
 ## Notes
 
