@@ -302,6 +302,8 @@ export default class FocusOverlay {
       }
 
       this.options.onBeforeMove(currentEl, this.nextTarget, this);
+      // This timeout avoids incorrect positioning of the focus if the next target element
+      // changes its position instantly after the focus has been applied.
       setTimeout(() => {
         this.moveFocusBox(this.nextTarget);
       }, 1);
