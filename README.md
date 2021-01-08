@@ -19,7 +19,22 @@ Install with npm:
 npm install @yoo-digital/focus-overlay
 ```
 
+### import styles
+
 The CSS is small enough to copy directly into your project's main stylesheet if you desire.
+
+CSS
+```bash
+import "~@yoo-digital/focus-overlay/dist/focusoverlay.css"
+```
+
+SCSS
+
+If you want to adjust the styling of the focus overlay import the SCSS file instead of the CSS file and override the [SCSS variables](https://github.com/yoo-digital/FocusOverlay/blob/master/src/styles.scss) as you wish.
+
+ ```bash
+import "~@yoo-digital/focus-overlay/src/styles.css"
+```
 
 ## Usage
 
