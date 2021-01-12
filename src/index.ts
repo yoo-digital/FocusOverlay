@@ -152,7 +152,7 @@ export default class FocusOverlay {
       if (this.active === false) {
         this.active = true;
         window.addEventListener('focusin', this.onFocusHandler, true);
-        window.addEventListener('blur', this.onBlurHandler, false);
+        window.addEventListener('focusout', this.onBlurHandler, false);
 
         if (this.options.debounceScroll) {
           window.addEventListener('scroll', this.debouncedMoveFocusBox, true);
@@ -231,12 +231,15 @@ export default class FocusOverlay {
    * @param {FocusEvent}
    */
   private onBlurHandler(e: FocusEvent): void {
+    this.cleanup();
+
     // If the next element is not in scope, stop being active.
     // It is necessary to add the focusin event listener again
     // in case the focus returns form an element, which is currently not in scope
     // (thus it would not trigger an onKeyDownEvent, which would add the event listeners)
     if (e.relatedTarget == null) {
       this.stop();
+      window.addEventListener('focusout', this.onBlurHandler, false);
       window.addEventListener('focusin', this.onFocusHandler, true);
     }
   }
@@ -247,8 +250,6 @@ export default class FocusOverlay {
    */
   private onFocusHandler(e: FocusEvent): void {
     const focusedEl = e.target as HTMLElement;
-
-    this.cleanup();
 
     // If the focused element is a child of the main element
     if (this.scopedEl?.contains(focusedEl)) {
@@ -322,7 +323,7 @@ export default class FocusOverlay {
   private stop(): void {
     this.active = false;
     window.removeEventListener('focusin', this.onFocusHandler, true);
-    window.removeEventListener('blur', this.onBlurHandler, false);
+    window.removeEventListener('focusout', this.onBlurHandler, false);
     if (this.options.debounceScroll) {
       window.removeEventListener('scroll', this.debouncedMoveFocusBox, true);
     }
@@ -407,7 +408,7 @@ export default class FocusOverlay {
 
     // Remove event listeners
     window.removeEventListener('focusin', this.onFocusHandler, true);
-    window.removeEventListener('blur', this.onBlurHandler, false);
+    window.removeEventListener('focusout', this.onBlurHandler, false);
     window.removeEventListener('keydown', this.onKeyDownHandler, false);
     window.removeEventListener('mousedown', this.stop, false);
     if (this.options.debounceScroll) {
