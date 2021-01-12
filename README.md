@@ -169,8 +169,8 @@ If you want to support IE11 you will have to add the following two polyfills:
 
 ## Notes
 
+- Special thanks to mmahandev for initially working on [focus-overlay](https://github.com/mmahandev/FocusOverlay) which allowed us to fork from.
 - Special thanks to NV as it was inspired by his [Flying Focus](https://github.com/NV/flying-focus) UI concept.
-- The jQuery version is still available at in the [jQuery](https://github.com/mmahandev/FocusOverlay/tree/jquery) branch. It is no longer mantained.
 
 #### Todo
 
