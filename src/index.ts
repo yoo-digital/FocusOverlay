@@ -107,8 +107,8 @@ export default class FocusOverlay {
 
     // Binding
     this.onKeyDownHandler = this.onKeyDownHandler.bind(this);
-    this.onFocusHandler = this.onFocusHandler.bind(this);
-    this.onBlurHandler = this.onBlurHandler.bind(this);
+    this.onFocusInHandler = this.onFocusInHandler.bind(this);
+    this.onFocusOutHandler = this.onFocusOutHandler.bind(this);
     this.moveFocusBox = this.moveFocusBox.bind(this);
     this.stop = this.stop.bind(this);
     this.debouncedMoveFocusBox = debounce(
@@ -127,7 +127,7 @@ export default class FocusOverlay {
   private init(): void {
     if (this.options.alwaysActive) {
       this.active = true;
-      window.addEventListener('focusin', this.onFocusHandler, true);
+      window.addEventListener('focusin', this.onFocusInHandler, true);
     } else {
       window.addEventListener('keydown', this.onKeyDownHandler, false);
 
@@ -151,8 +151,8 @@ export default class FocusOverlay {
     if (this.options.triggerKeys.includes(code)) {
       if (this.active === false) {
         this.active = true;
-        window.addEventListener('focusin', this.onFocusHandler, true);
-        window.addEventListener('focusout', this.onBlurHandler, false);
+        window.addEventListener('focusin', this.onFocusInHandler, true);
+        window.addEventListener('focusout', this.onFocusOutHandler, false);
 
         if (this.options.debounceScroll) {
           window.addEventListener('scroll', this.debouncedMoveFocusBox, true);
@@ -227,10 +227,10 @@ export default class FocusOverlay {
   }
 
   /**
-   * Handler method for the blur event
+   * Handler method for the focusout event
    * @param {FocusEvent}
    */
-  private onBlurHandler(e: FocusEvent): void {
+  private onFocusOutHandler(e: FocusEvent): void {
     this.cleanup();
 
     // If the next element is not in scope, stop being active.
@@ -239,16 +239,16 @@ export default class FocusOverlay {
     // (thus it would not trigger an onKeyDownEvent, which would add the event listeners)
     if (e.relatedTarget == null) {
       this.stop();
-      window.addEventListener('focusout', this.onBlurHandler, false);
-      window.addEventListener('focusin', this.onFocusHandler, true);
+      window.addEventListener('focusout', this.onFocusOutHandler, false);
+      window.addEventListener('focusin', this.onFocusInHandler, true);
     }
   }
 
   /**
-   * Handler method for the focus event
+   * Handler method for the focusin event
    * @param {FocusEvent}
    */
-  private onFocusHandler(e: FocusEvent): void {
+  private onFocusInHandler(e: FocusEvent): void {
     const focusedEl = e.target as HTMLElement;
 
     // If the focused element is a child of the main element
@@ -322,8 +322,8 @@ export default class FocusOverlay {
    */
   private stop(): void {
     this.active = false;
-    window.removeEventListener('focusin', this.onFocusHandler, true);
-    window.removeEventListener('focusout', this.onBlurHandler, false);
+    window.removeEventListener('focusin', this.onFocusInHandler, true);
+    window.removeEventListener('focusout', this.onFocusOutHandler, false);
     if (this.options.debounceScroll) {
       window.removeEventListener('scroll', this.debouncedMoveFocusBox, true);
     }
@@ -407,8 +407,8 @@ export default class FocusOverlay {
     this.nextTarget?.classList.remove(this.options.targetClass);
 
     // Remove event listeners
-    window.removeEventListener('focusin', this.onFocusHandler, true);
-    window.removeEventListener('focusout', this.onBlurHandler, false);
+    window.removeEventListener('focusin', this.onFocusInHandler, true);
+    window.removeEventListener('focusout', this.onFocusOutHandler, false);
     window.removeEventListener('keydown', this.onKeyDownHandler, false);
     window.removeEventListener('mousedown', this.stop, false);
     if (this.options.debounceScroll) {
