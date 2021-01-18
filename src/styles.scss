@@ -10,6 +10,8 @@ $focus-overlay-border-radius: 0.3125em !default;
 $focus-overlay-transition: all 0.2s cubic-bezier(0, 1, 0, 1) !default;
 
 .focus-overlay {
+  --focus-overlay-offset: #{$focus-overlay-offset};
+
   display: none;
   position: relative;
   transition: $focus-overlay-transition;
@@ -19,9 +21,13 @@ $focus-overlay-transition: all 0.2s cubic-bezier(0, 1, 0, 1) !default;
     position: absolute;
     z-index: $focus-overlay-z-index;
     top: $focus-overlay-offset;
+    top: var(--focus-overlay-offset);
     right: $focus-overlay-offset;
+    right: var(--focus-overlay-offset);
     bottom: $focus-overlay-offset;
+    bottom: var(--focus-overlay-offset);
     left: $focus-overlay-offset;
+    left: var(--focus-overlay-offset);
     border: $focus-overlay-border;
     border-radius: $focus-overlay-border-radius;
     box-shadow: $focus-overlay-box-shadow;

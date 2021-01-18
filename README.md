@@ -158,6 +158,14 @@ In this example when the user focuses the input, FocusOverlay will instead targe
 
 In this example FocusOverlay will not target this element at all.
 
+### Example usage for `data-focus-offset`:
+
+If you want to adjust the default offset for individual elements, you can do so by defining the `data-focus-offset` attribute.
+
+```html
+<a href="/info.html" data-focus-offset={0}>Click me</a>
+```
+
 ## Browser support
 
 Focus Overlay works on all modern browsers.
