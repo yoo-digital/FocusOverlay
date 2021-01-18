@@ -1,6 +1,6 @@
 {
   "name": "@yoo-digital/focus-overlay",
-  "version": "1.0.3",
+  "version": "1.1.0",
   "description": "Library for creating overlays on focused elements.",
   "license": "MIT",
   "engines": {

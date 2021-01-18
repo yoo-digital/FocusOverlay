@@ -8,6 +8,7 @@ This is a fork of the original library [focus-overlay](https://github.com/mmahan
 * `debounceResize`
 * `debounceMs`
 * `watchAnimationEnd`
+* `data-focus-offset`
 
 ![Focus Overlay](http://i.imgur.com/zMFb7m4.gif)
 
@@ -157,6 +158,14 @@ In this example when the user focuses the input, FocusOverlay will instead targe
 ```
 
 In this example FocusOverlay will not target this element at all.
+
+### Example usage for `data-focus-offset`:
+
+If you want to adjust the default offset for individual elements, you can do so by defining the `data-focus-offset` attribute.
+
+```html
+<a href="/info.html" data-focus-offset={0}>Click me</a>
+```
 
 ## Browser support
 

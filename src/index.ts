@@ -245,6 +245,33 @@ export default class FocusOverlay {
   }
 
   /**
+   * The 'data-focus-offset' property let's you customize the default offset value of the
+   * focus box. The class name 'focus-overlay-offset' indicates whether a custom offset is
+   * currently set or not.
+   *
+   * @param {HTMLElement}
+   */
+  private setFocusBoxOffset(focusedElement: HTMLElement): void {
+    const { focusBox } = this;
+    if (focusBox) {
+      // If a custom offset is defined, remove the class and reset the CSS offset variable
+      // to the default value.
+      if (focusBox.classList.contains('focus-overlay-offset')) {
+        focusBox.classList.remove('focus-overlay-offset');
+        focusBox.style.removeProperty('--focus-overlay-offset');
+      }
+
+      // If the data attribute 'data-focus-offset' is defined on the focusedElement,
+      // add the class and override the CSS offset variable to the given value.
+      const focusOffset = focusedElement.getAttribute('data-focus-offset');
+      if (focusOffset !== null) {
+        focusBox.classList.add('focus-overlay-offset');
+        focusBox.style.setProperty('--focus-overlay-offset', focusOffset);
+      }
+    }
+  }
+
+  /**
    * Handler method for the focusin event
    * @param {FocusEvent}
    */
@@ -255,6 +282,8 @@ export default class FocusOverlay {
     if (this.scopedEl?.contains(focusedEl)) {
       // Variable to be added to onBeforeMove event later
       const currentEl = this.nextTarget;
+
+      this.setFocusBoxOffset(focusedEl);
 
       // If the focused element has data-focus then assign a new target
       const focusSelector = focusedEl.getAttribute('data-focus');
