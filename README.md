@@ -8,6 +8,7 @@ This is a fork of the original library [focus-overlay](https://github.com/mmahan
 * `debounceResize`
 * `debounceMs`
 * `watchAnimationEnd`
+* `data-focus-offset`
 
 ![Focus Overlay](http://i.imgur.com/zMFb7m4.gif)
 
